@@ -14,7 +14,7 @@ configCors(app);
 // Middleware
 app.use(express.json({ limit: '50mb', extended: true }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
-app.use(express.static(process.env.UPLOADED_FOLDER));
+// app.use(express.static(process.env.UPLOADED_FOLDER));
 app.use(cookieParser());
 
 // config app
