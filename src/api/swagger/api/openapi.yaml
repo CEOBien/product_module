@@ -1,0 +1,235 @@
+openapi: 3.0.1
+info:
+  title: Product documents API
+  # description: NS Checkin system REST API
+  # termsOfService: http://swagger.io/terms/
+  # contact:
+  #   name: Hyperledger Team
+  # license:
+  #   name: Apache 2.0
+  #   url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: https://
+  - url: http://192.168.1.8:8345
+  - url: http://localhost:2712
+
+paths:
+  /api/product/createProduct:
+    post:
+      tags:
+        - product
+      summary: create product
+      operationId: create product
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                NAME:
+                  type: tring
+                DESC:
+                  type: string
+                CATEGORY_ID:
+                  type: number
+                CD:
+                  type: string
+                PRICE:
+                  type: number
+              required:
+                - image
+                - NAME
+                - PRICE
+            example:
+              pdfFile: [binary-data]
+
+      responses:
+        "200":
+          description: Success
+          content: {}
+        "400":
+          description: Bad Request
+          content: {}
+        "401":
+          description: UnAuthorized
+          content: {}
+        "404":
+          description: Not found
+          content: {}
+      security:
+        - JWT: []
+  /api/product/getAllproduct:
+    get:
+      tags:
+        - product
+      summary: get all product
+      operationId: get all product
+      responses:
+        "200":
+          description: Success
+          content: {}
+        "400":
+          description: Bad Request
+          content: {}
+        "401":
+          description: UnAuthorized
+          content: {}
+        "404":
+          description: Not found
+          content: {}
+      security:
+        - JWT: []
+
+  /api/product/getProductId/{productId}:
+    get:
+      tags:
+        - product
+      summary: get product details by product ID
+      operationId: get product details by product ID
+      parameters:
+        - name: productId
+          in: path
+          description: Please provide productId
+          required: true
+          schema:
+            type: string
+            example: "1"
+      responses:
+        "200":
+          description: Success
+          content: {}
+        "400":
+          description: Bad Request
+          content: {}
+        "401":
+          description: UnAuthorized
+          content: {}
+        "404":
+          description: Not found
+          content: {}
+      security:
+        - JWT: []
+  /api/product/updateProduct/{productId}:
+    patch:
+      tags:
+        - product
+      summary: update product
+      operationId: update product
+      parameters:
+        - name: productId
+          in: path
+          description: Please provide productId
+          required: true
+          schema:
+            type: string
+            example: "1"
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                NAME:
+                  type: tring
+                DESC:
+                  type: string
+                CATEGORY_ID:
+                  type: number
+                CD:
+                  type: string
+                PRICE:
+                  type: number
+
+            example:
+              pdfFile: [binary-data]
+
+      responses:
+        "200":
+          description: Success
+          content: {}
+        "400":
+          description: Bad Request
+          content: {}
+        "401":
+          description: UnAuthorized
+          content: {}
+        "404":
+          description: Not found
+          content: {}
+      security:
+        - JWT: []
+  /api/product/deleteProduct/{productId}:
+    delete:
+      tags:
+        - product
+      summary: delete product by product ID
+      operationId: delete product by product ID
+      parameters:
+        - name: productId
+          in: path
+          description: Please provide productId
+          required: true
+          schema:
+            type: string
+            example: "1"
+      responses:
+        "200":
+          description: Success
+          content: {}
+        "400":
+          description: Bad Request
+          content: {}
+        "401":
+          description: UnAuthorized
+          content: {}
+        "404":
+          description: Not found
+          content: {}
+      security:
+        - JWT: []
+  /api/product/searchProduct:
+    post:
+      tags:
+        - product
+      summary: search product
+      operationId: search product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/product"
+            example:
+              "NAME": "Dragon"
+
+      responses:
+        "200":
+          description: Success
+          content: {}
+        "400":
+          description: Bad Request
+          content: {}
+        "401":
+          description: UnAuthorized
+          content: {}
+        "404":
+          description: Not found
+          content: {}
+      security:
+        - JWT: []
+components:
+  schemas:
+  securitySchemes:
+    JWT:
+      type: apiKey
+      in: header
+      name: Authorization
